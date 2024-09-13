@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block title %}
+Tweets page
+{% endblock %}
+
+{% block content %}
+<h3 class="text-center">Welcome to tweets page</h3>
+<a class="btn btn-primary mb-4" href="{% url 'create_tweet' %}">Create a tweet</a>
+<div class="row mb-4">
+  {% for tweet in tweets %}
+  <div class="card" style="width: 18rem;">
+      <img src="{{tweet.image.url}}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{tweet.user.username}}</h5>
+        <p class="card-text">{{tweet.tweet}}</p>
+        {% if tweet.user == user %}
+        <a href="{% url 'edit_tweet' tweet.id %}" class="btn btn-primary">Edit</a>
+        <a class="btn btn-danger" href="{% url 'delete_tweet' tweet.id %}" class="btn btn-primary">Delete</a>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}
